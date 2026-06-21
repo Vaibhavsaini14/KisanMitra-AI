@@ -47,7 +47,7 @@ class CropAdvisor:
     """Generates crop advisory using Claude with RAG-retrieved context."""
 
     def __init__(self, rag_engine):
-        self.client = anthropic.Anthropic()  # Reads ANTHROPIC_API_KEY from env
+        self.client = anthropic.Anthropic()
         self.rag = rag_engine
 
     def get_advisory(
@@ -107,7 +107,6 @@ Generate accurate, actionable advisory based on the above context and your agric
             return json.loads(clean)
 
         except json.JSONDecodeError:
-            # Fallback: return raw text as summary
             return {
                 "summary": "Advisory generated",
                 "diagnosis": text[:300] if "text" in dir() else "Please check your crop carefully.",
