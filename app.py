@@ -9,7 +9,6 @@ import streamlit as st
 from rag_engine import CropRAG
 from advisor import CropAdvisor
 
-# ── Page Config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="KisanMitra AI — Crop Advisory",
     page_icon="🌾",
@@ -17,7 +16,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ── Custom CSS ─────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
     .main-header {
@@ -69,7 +67,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Session State ─────────────────────────────────────────────────────────────
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "rag" not in st.session_state:
@@ -78,7 +76,7 @@ if "rag" not in st.session_state:
 if "advisor" not in st.session_state:
     st.session_state.advisor = CropAdvisor(st.session_state.rag)
 
-# ── Header ─────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <div class="main-header">
     <h1 style="margin:0;font-size:1.7rem;font-weight:600">🌾 KisanMitra AI</h1>
@@ -91,7 +89,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Sidebar ────────────────────────────────────────────────────────────────────
+
 with st.sidebar:
     st.markdown("### 🌱 Crop Details / फसल विवरण")
 
@@ -152,11 +150,11 @@ with st.sidebar:
     - *जीरे की फसल सूख रही है*
     """)
 
-# ── Main Chat Area ─────────────────────────────────────────────────────────────
+
 col1, col2 = st.columns([3, 1])
 
 with col1:
-    # Display chat history
+    
     chat_container = st.container()
 
     with chat_container:
@@ -223,7 +221,6 @@ with col1:
                         )
                 st.divider()
 
-    # ── Input Area ─────────────────────────────────────────────────────────────
     problem = st.text_area(
         "Describe your problem / अपनी समस्या लिखें",
         placeholder=(
@@ -259,9 +256,7 @@ with col1:
             })
 
             with st.spinner("🤖 KisanMitra AI is analyzing your crop problem..."):
-                # RAG retrieval
                 context = st.session_state.rag.retrieve(crop, district, problem)
-                # Generate advisory
                 response = st.session_state.advisor.get_advisory(
                     crop=crop,
                     district=district,
@@ -276,8 +271,6 @@ with col1:
                 "content": response
             })
             st.rerun()
-
-# ── Right Panel — Info ─────────────────────────────────────────────────────────
 with col2:
     st.markdown("### 📊 Water Zones")
     st.markdown("""
