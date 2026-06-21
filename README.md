@@ -95,9 +95,7 @@ cd kisanmitra-ai
 ### 2. Create virtual environment
 ```bash
 python -m venv venv
-# Windows:
 venv\Scripts\activate
-# Mac/Linux:
 source venv/bin/activate
 ```
 
