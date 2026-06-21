@@ -1,0 +1,9 @@
+anthropic>=0.40.0
+streamlit>=1.40.0
+numpy>=1.26.0
+python-dotenv>=1.0.0
+
+# Optional — for full FAISS vector search
+# Install these for production RAG pipeline
+# faiss-cpu>=1.8.0
+# sentence-transformers>=3.0.0
