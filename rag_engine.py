@@ -7,8 +7,6 @@ Falls back to keyword matching if sentence-transformers unavailable.
 import json
 import numpy as np
 from pathlib import Path
-
-# ── Rajasthan Crop Knowledge Base ─────────────────────────────────────────────
 CROP_KNOWLEDGE = [
     {
         "id": "bajra-downy-mildew",
@@ -235,7 +233,6 @@ Source: National Centre of Organic Farming, ICAR Guidelines for Organic Farming
     },
 ]
 
-# ── RAG Engine ─────────────────────────────────────────────────────────────────
 class CropRAG:
     """
     RAG engine using FAISS for vector similarity search.
@@ -299,8 +296,6 @@ class CropRAG:
             crop_match = entry["crop"].lower() in crop.lower() or crop.lower() in entry["crop"].lower()
             overlap = len(query_words & kw_words)
             score = overlap + (5 if crop_match else 0)
-
-            # Water advisory bonus for arid districts
             arid = ["jodhpur", "barmer", "jaisalmer", "bikaner", "nagaur", "pali", "churu", "sikar"]
             if district.lower() in arid and "water" in entry["problem_type"]:
                 score += 3
@@ -311,7 +306,6 @@ class CropRAG:
         results = [e["content"] for _, e in scores[:top_k] if _[0] > 0]
 
         if not results:
-            # Return general organic knowledge as fallback
             results = [self.knowledge[-2]["content"]]
 
         return "\n\n---\n\n".join(results)
